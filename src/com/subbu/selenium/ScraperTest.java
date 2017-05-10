@@ -1,5 +1,6 @@
 package com.subbu.selenium;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import com.gargoylesoftware.htmlunit.StringWebResponse;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HTMLParser;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-public class GoogleTest {
+
+public class ScraperTest {
 
 	@Test
 	public void testGoogle() throws Exception {
@@ -18,6 +24,15 @@ public class GoogleTest {
 		driver.get("http://sccl.evanced.info/signup/List?ag=all&private=0&lib=3");
 		
 		CSVTable csvTable = new CSVTable("test.csv", Arrays.asList("eventId","title","date","AgeGroups","EventTypes","descriptionContainer"));
+		
+		/*URL url = new URL("http://www.example.com");
+		StringWebResponse response = new StringWebResponse("<html><head><title>Test</title></head><body></body></html>", url);
+		WebClient client = new WebClient();
+		HtmlPage page = HTMLParser.parseHtml(response, client.getCurrentWindow());
+		System.out.println(page.getTitleText());
+		
+		if(true)
+			return;*/
 		
 		List<String> eventIds = new ArrayList<>(); 
 		driver.findElements(By.className("eventTicketInfo")).forEach((e) -> eventIds.add(e.getAttribute("data-event-id")));
